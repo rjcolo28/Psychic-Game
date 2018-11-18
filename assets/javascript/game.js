@@ -3,27 +3,43 @@ var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l
 var wins = 0;
 var losses = 0;
 
-guessesLeft = 10;
+var guessesLeft = 10;
 
 var winsText = document.getElementById("wins-text");
 var lossesText = document.getElementById("losses-text");
-var lettersGuessed = document.getElementById("letter-guesses");
+var guessesLeftText = document.getElementById("guesses-left-text");
+var lettersGuessedText = document.getElementById("letter-guesses");
+
+var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
 
 document.onkeyup = function(event) {
     
     var userGuess = event.key;
 
-    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-
-    if ((userGuess === computerGuess)) {
+    
+    
+    if (userGuess === computerGuess) {
+       
         wins++;
+        guessesLeft = 10;
+        computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
     }
     else {
-        losses++;
+   
+        guessesLeft = guessesLeft - 1;
+            if (guessesLeft === 0) {
+                console.log("asdf")
+                losses++;
+                guessesLeft = 10;
+                computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+            }
+        
+        
     }
-    console.log ("winstText", winsText);
-    console.log (wins);
+
     winsText.textContent = "wins: " + wins;
     lossesText.textContent = "losses: " + losses;
+    guessesLeftText.textContent = "Guesses left: " + guessesLeft;
+    lettersGuessedText.textContent = "Letters guessed: " + userGuess;
 
 }
